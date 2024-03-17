@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('brochures', function (Blueprint $table) {
             $table->id();
+            $table->string('images_name')->nullable()->comment("ชื่อรูป Brochures"); 
             $table->timestamps();
         });
     }

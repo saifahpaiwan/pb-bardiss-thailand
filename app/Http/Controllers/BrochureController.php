@@ -7,7 +7,7 @@ use Inertia\Inertia;
 
 class BrochureController extends Controller
 { 
-    public function index($id = null, $code = null)
+    public function index($id = null)
     {
         return Inertia::render('Brochure/Index');
     } 

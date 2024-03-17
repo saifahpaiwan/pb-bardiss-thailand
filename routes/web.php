@@ -24,7 +24,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/brochure/{id}/{code}', [BrochureController::class, 'index'])->name('brochure.index');
+Route::get('/brochure/{id}', [BrochureController::class, 'index'])->name('brochure.index');
  
 
 Route::middleware('auth')->group(function () {  
