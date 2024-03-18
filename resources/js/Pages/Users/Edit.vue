@@ -19,10 +19,7 @@ const ObjSubtitle = ref([
     { message: 'แก้ไขข้อมูลผู้ใช้งาน' },
 ]);
 
-const props = defineProps({
-    plants: {
-        type: Array
-    },
+const props = defineProps({ 
     roles: {
         type: Array
     },
@@ -34,8 +31,7 @@ const props = defineProps({
         type: Number, 
     }
 });
-
-const plants = props.plants;
+ 
 const roles = props.roles;
 const user = props.user
 const date = new Date();
@@ -43,8 +39,7 @@ const currentDate = date.toDateString();
  
 const form = useForm({
     code: user.empolyee_code,
-    password: '',
-    plant_id: plants.find(item => item.id === user.plant_id),
+    password: '', 
     email: user.email,
     phone: user.phone,
     username: user.username,
@@ -100,32 +95,15 @@ const submit = () => {
                         </div>
 
                         <form @submit.prevent="submit" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-md-4">
+                            <div class="row"> 
+                                <div class="col-md-5">
                                     <div class="form-group">
-                                        <InputLabel for="plant_id" value="Plants" />
-                                        <Dropdown v-model="form.plant_id" :options="plants" filter optionValue="plant_id"
-                                            placeholder="Select a Plants" class="w-100">
-                                            <template #value="slotProps">
-                                                <div v-if="slotProps.value" class="flex align-items-center">
-                                                    <div>{{ slotProps.value.plant }} </div>
-                                                </div>
-                                                <span v-else>
-                                                    {{ slotProps.placeholder }}
-                                                </span>
-                                            </template>
-                                        </Dropdown>
-                                        <InputError class="mt-2" :message="form.errors.plant_id" />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <InputLabel for="code" value="รหัสพนักงาน : " required />
+                                        <InputLabel for="code" value="รหัส : " required />
                                         <TextInput id="code" type="text" v-model="form.code" required />
                                         <InputError class="mt-2" :message="form.errors.code" />
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <InputLabel for="email" value="อีเมล (Email) : " required />
                                         <TextInput id="email" type="email" v-model="form.email" required />

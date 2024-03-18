@@ -68,6 +68,13 @@ const menuUsersSettings = ref([
                                 <span> แดชบอร์ด </span>
                                 </Link>
                             </li> 
+                            <li>
+                                <Link :href="route('brochures.index')"
+                                    :class="{ 'active': route().current('brochures.index'), '': !route().current('brochures.index') }">
+                                <i class="fe-image"></i>
+                                <span> โบรชัวร์ Brochures </span>
+                                </Link>
+                            </li>  
                             <li class="menu-title"> Management Authenticate </li> 
                             <DropdownLeftMenu :name="'การตั้งค่าระบบ'" :icon="'fe-settings'" :items="menuUsersSettings" /> 
                         </ul>

@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->integer('plant_id')->nullable()->comment("รหัส Plant")->index();
+            $table->id(); 
             $table->string('username')->nullable()->comment("ชื่อผู้ใช้งานระบบ");
             $table->string('email')->unique()->comment("อีเมลผู้ใช้งานระบบ");
             $table->timestamp('email_verified_at')->nullable()->comment("Verified Email เพื่อยืนยันตัวตน"); 

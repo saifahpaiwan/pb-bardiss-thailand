@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrochureController;
+use App\Http\Controllers\BrochureMgController;
 use App\Http\Controllers\CategctsController;
 use App\Http\Controllers\DispensingMedicineController;
 use App\Http\Controllers\ImportStockController;
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UsersController::class);
     Route::resource('roles', RoleController::class);  
+    Route::resource('brochures', BrochureMgController::class);
 });
 
 require __DIR__ . '/auth.php';

@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\plants;
+ 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -53,8 +52,7 @@ class UsersController extends Controller
         if (isset($data) && count($data) > 0) {
             foreach ($data as $row) {
                 $users[$row->id]['id'] = $row->id;
-                $users[$row->id]['image']    = (!empty($row->images_name)) ?  $row->images_name  : null;
-                $users[$row->id]['plant']    = $row->rPlant?->plant;
+                $users[$row->id]['image']    = (!empty($row->images_name)) ?  $row->images_name  : null; 
                 $users[$row->id]['username'] = $row->username;
                 $users[$row->id]['empolyee_code'] = $row->empolyee_code;
                 $users[$row->id]['role_name'] = $row->getRoleNames()->first();
@@ -71,11 +69,9 @@ class UsersController extends Controller
     }
 
     public function create()
-    {
-        $plants = plants::select('id', 'plant')->where('status', 1)->get();
+    { 
         $roles = Role::select('id', 'name')->get();
-        return Inertia::render('Users/Create', [
-            'plants' => $plants,
+        return Inertia::render('Users/Create', [ 
             'roles' => $roles,
         ]);
     }
@@ -105,8 +101,7 @@ class UsersController extends Controller
         $input = $request->all();
         $input['empolyee_code'] = $request->code;
         $input['password'] = Hash::make($input['password']);
-        $input['images_name'] = $file_name;
-        $input['plant_id']    = $request->plant_id['id'];
+        $input['images_name'] = $file_name; 
         $user = User::create($input);
         $user->assignRole($request->roles['id']);
         Log::info('username : ' . auth()->user()->username . ' IP : ' . request()->ip() . ' | User created successfully' . json_encode($request->all(), true));
@@ -121,11 +116,9 @@ class UsersController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
-        $roleID = $user->rRoles?->role_id;
-        $plants = plants::select('id', 'plant')->where('status', 1)->get();
+        $roleID = $user->rRoles?->role_id; 
         $roles = Role::select('id', 'name')->get();
-        return Inertia::render('Users/Edit', [
-            'plants' => $plants,
+        return Inertia::render('Users/Edit', [ 
             'roles' => $roles,
             'user'  => $user,
             'roleID' => $roleID,
@@ -173,8 +166,7 @@ class UsersController extends Controller
         } else {
             $input = Arr::except($input, array('password'));
         }
-        $input['images_name'] = $file_name;
-        $input['plant_id']    = $request->plant_id['id'];
+        $input['images_name'] = $file_name; 
 
         $users->update($input);
 

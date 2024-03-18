@@ -20,8 +20,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'plant_id', 
+    protected $fillable = [ 
         'username',  
         'email', 
         'email_verified_at',
@@ -53,12 +52,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function rPlant(): HasOne
-    {
-        return $this->hasOne(plants::class, 'id', 'plant_id');
-    }
-
+ 
     public function rRoles(): HasOne
     {
         return $this->hasOne(RoleUser::class, 'model_id', 'id');

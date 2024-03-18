@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('brochures', function (Blueprint $table) {
             $table->id();
             $table->string('images_name')->nullable()->comment("ชื่อรูป Brochures"); 
+            $table->text('description')->nullable()->comment("คำอธิบาย");
+            $table->char('status')->default(1)->comment("สถานะการแสดผล : 0=Disable, 1=Enable"); 
             $table->timestamps();
         });
     }

@@ -9,16 +9,13 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Dropdown from 'primevue/dropdown';
 import Swal from 'sweetalert2'; 
- 
-const ObjSubtitle = ref([{ message: 'รายการข้อมูลผู้ใช้งาน' }]);
+
+const ObjSubtitle = ref([{ message: 'รายการข้อมูลโบรชัวร์ Brochures ' }]);
 const date = new Date();
 const currentDate = date.toDateString();
 
 const props = defineProps({
-    users: {
-        type: Array
-    },
-    roles: {
+    brochures: {
         type: Array
     }
 });
@@ -34,7 +31,7 @@ function destroy(id) {
         confirmButtonText: "Yes, delete it!"
     }).then((result) => {
         if (result.isConfirmed) {
-            form.delete(route("users.destroy", id), {
+            form.delete(route("brochures.destroy", id), {
                 onFinish: () => {
                     Swal.fire({
                         title: "Deleted!",
@@ -52,13 +49,9 @@ function destroy(id) {
 }
 
 const form = useForm({
-    keyword: ref(),
-    roles_id: ref(),
+    keyword: ref(), 
     status: ref(),
 });
-
-const roles = props.roles;
-const users = Object.values(JSON.parse(JSON.stringify(props.users)));
  
 const status = ref([
     { id: '-1', name: 'Disable' },
@@ -66,14 +59,13 @@ const status = ref([
 ]);
 
 const submit = () => {
-    form.get(route('users.index'));
+    form.get(route('brochures.index'));
 };
-  
-const customers = ref();
+   
 </script> 
 
 <template>
-    <Head title="Users List" />
+    <Head title="Brochures List" />
 
     <AuthenticatedLayout>
         <PageTitleBox titlemain="แดชบอร์ด" :subtitles="ObjSubtitle" />
@@ -83,11 +75,11 @@ const customers = ref();
                     <div class="card-body">
                         <div class="row mb-1">
                             <div class="col-md-6 responsive-mobile-title ">
-                                <h4 class="header-title"> จัดการผู้ใช้งานระบบ (Users) </h4>
+                                <h4 class="header-title"> จัดการโบรชัวร์ Brochures  (Brochures)</h4>
                                 <p class="sub-header"> ข้อมูลประจำวันที่ : {{ currentDate }}</p>
                             </div>
                             <div class="col-md-6 text-right responsive-mobile-btn">
-                                <Link :href="route('users.create')"
+                                <Link :href="route('brochures.create')"
                                     class="btn btn-primary waves-effect waves-light float-right mb-2">
                                 <i class="fe-plus-square"></i> <span>เพิ่มข้อมูล</span>
                                 </Link>
@@ -95,23 +87,9 @@ const customers = ref();
                         </div>
                         <form @submit.prevent="submit">
                             <div class="row">
-                                <div class="col-md-5 form-group">
-                                    <input type="search" class="form-control" v-model="form.keyword"
-                                        placeholder="ค้นหาข้อมูลเพิ่มเติม">
-                                </div>
-                                <div class="col-md-2 form-group">
-                                    <Dropdown v-model="form.roles_id" :options="roles" filter optionLabel="name"
-                                        placeholder="Select a Roles" class="w-100">
-                                        <template #value="slotProps">
-                                            <div v-if="slotProps.value" class="flex align-items-center">
-                                                <div>{{ slotProps.value.name }}</div>
-                                            </div>
-                                            <span v-else>
-                                                {{ slotProps.placeholder }}
-                                            </span>
-                                        </template>
-                                    </Dropdown>
-                                </div>
+                                <div class="col-md-7 form-group">
+                                    <input type="search" class="form-control" v-model="form.keyword" placeholder="ค้นหาข้อมูลเพิ่มเติม">
+                                </div> 
                                 <div class="col-md-2 form-group">
                                     <Dropdown v-model="form.status" :options="status" filter optionLabel="name"
                                         placeholder="Select a Status" class="w-100">
@@ -128,7 +106,7 @@ const customers = ref();
                                 <div class="col-md-3 form-group text-right">
                                     <button class="btn btn-dark waves-effect waves-light" type="summit"> <i
                                             class="fe-search"></i> ค้นหา</button>
-                                    <Link :href="route('users.index')" class="btn btn-dark waves-effect waves-light"> <i
+                                    <Link :href="route('brochures.index')" class="btn btn-dark waves-effect waves-light"> <i
                                         class="fe-rotate-cw"></i>
                                     รีเฟรช </Link>
                                 </div>
@@ -136,27 +114,9 @@ const customers = ref();
                         </form>
 
                         <div class="table-responsive"> 
-                            <DataTable :value="users" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" sortMode="multiple" tableStyle="width: 100%">
-                                <Column field="image" header="รูป">
-                                    <template #body="slotProps">
-                                        <img :src="`/favicon.ico`" :alt="slotProps.data.image" class="rounded-circle"
-                                            height="50" width="50" v-if="slotProps.data.image == null" />
-                                        <img :src="`storage/images/users/${slotProps.data.image}`"
-                                            :alt="slotProps.data.image" class="rounded-circle" height="50" width="50"
-                                            v-else />
-                                    </template>
-                                </Column>
-                                <Column sortable field="empolyee_code" header="รหัสพนักงาน"></Column>
-                                <Column sortable field="username" header="ชื่อ-นามสกุล">
-                                    <template #body="slotProps">
-                                        {{ slotProps.data.username }}
-                                    </template>
-                                </Column>
-                                <Column field="role_name" header="สิทธิ์ผู้ใช้งาน">
-                                    <template #body="slotProps">
-                                        <span class="badge bg-dark p-1 mb-1"> {{ slotProps.data.role_name }} </span>
-                                    </template>
-                                </Column>
+                            <DataTable :value="brochures" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" sortMode="multiple" tableStyle="width: 100%"> 
+                                <Column sortable field="images_name" header="ชื่อรูปโบรชัวร์ Brochures"></Column>  
+                                <Column sortable field="description" header="คำอธิบายเพิ่มเติม"></Column>  
                                 <Column sortable field="status" header="สถานะ">
                                     <template #body="slotProps">
                                         <span class="badge badge-success p-1"
@@ -173,7 +133,7 @@ const customers = ref();
                                 <Column header="#">
                                     <template #body="slotProps">
                                         <div class="text-right">
-                                            <Link :href="route('users.edit', slotProps.data.id)"
+                                            <Link :href="route('brochures.edit', slotProps.data.id)"
                                                 class="btn btn-dark waves-effect waves-light"> แก้ไข </Link>
                                             <button type="button" class="btn btn-danger waves-effect waves-light ml-1"
                                                 @click="destroy(slotProps.data.id)"
