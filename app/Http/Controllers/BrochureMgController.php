@@ -32,7 +32,7 @@ class BrochureMgController extends Controller
 
         $brochure = $query->orderBy('id', 'DESC')->get();
         return Inertia::render('ManageData/Brochure/Index', [
-            'brochure' => $brochure
+            'brochures' => $brochure
         ]);
     }
 
@@ -77,7 +77,7 @@ class BrochureMgController extends Controller
     {
         $brochure = brochure::find($id);
         return Inertia::render('ManageData/Brochure/Edit', [
-            'brochure' => $brochure
+            'brochures' => $brochure
         ]); 
     }
 
